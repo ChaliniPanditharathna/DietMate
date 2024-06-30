@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -49,7 +51,8 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
-    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-analytics")
+    //implementation("com.google.firebase:firebase-auth")
 
     // Retrofit dependencies
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

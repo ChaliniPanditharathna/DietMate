@@ -1,6 +1,10 @@
 package com.example.dietmate;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -8,13 +12,17 @@ import androidx.fragment.app.Fragment;
 import com.example.dietmate.fragment.HistoryFragment;
 import com.example.dietmate.fragment.HomeFragment;
 import com.example.dietmate.fragment.NotificationFragment;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int NAVIGATION_HOME = R.id.navigation_home;
-    private static final int NAVIGATION_NOTIFICATIONS = R.id.navigation_notifications;
-    private static final int NAVIGATION_HISTORY = R.id.navigation_history;
+    private static final String IDP_RESPONSE = "extra_idp_response";
+
+    @NonNull
+    public static Intent createIntent(@NonNull Context context, @Nullable IdpResponse response) {
+        return new Intent().setClass(context, MainActivity.class).putExtra(IDP_RESPONSE, response);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
