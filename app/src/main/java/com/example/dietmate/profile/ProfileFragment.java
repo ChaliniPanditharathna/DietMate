@@ -17,7 +17,6 @@ import com.example.dietmate.R;
 import com.example.dietmate.adapter.ProfileOptionsAdapter;
 import com.example.dietmate.database.DietMateDatabase;
 import com.example.dietmate.databinding.FragmentProfileBinding;
-import com.example.dietmate.fragment.HomeFragment;
 import com.example.dietmate.login.LoginActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -52,7 +51,7 @@ public class ProfileFragment extends Fragment {
         ProfileOptionsAdapter profileOptionsAdapter = new ProfileOptionsAdapter(IMAGES_LIST, LABELS_LIST, position -> {
             switch (position) {
                 case 0:
-                    Intent intent = new Intent(getActivity(), ProfileFragment.class);
+                    Intent intent = new Intent(getActivity(), ProfileUpdateActivity.class);
                     startActivity(intent);
                     break;
                 case 1:
