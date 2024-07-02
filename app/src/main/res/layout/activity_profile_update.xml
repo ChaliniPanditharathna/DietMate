@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".profile.ProfileUpdateActivity">
 
-    <!-- User Personal Data -->
-
+    <!-- Title -->
     <TextView
         android:id="@+id/titleUP"
         android:layout_width="wrap_content"
@@ -20,14 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Dietary Restrictions -->
-
-    <!-- Health Goals -->
-
-    <!-- Preferences -->
-
-    <!-- Update Button -->
-
+    <!-- User Personal Data -->
     <EditText
         android:id="@+id/editTextAge"
         android:layout_width="70dp"
@@ -37,7 +29,6 @@
         android:inputType="number"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/editTextHeight"
-        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleUP" />
 
@@ -50,8 +41,7 @@
         android:hint="Height"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/editTextWeight"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextAge"
         app:layout_constraintTop_toBottomOf="@+id/titleUP" />
 
     <EditText
@@ -62,10 +52,10 @@
         android:hint="Weight"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextHeight"
         app:layout_constraintTop_toBottomOf="@+id/titleUP" />
 
+    <!-- Dietary Preferences -->
     <TextView
         android:id="@+id/dietaryPreferencesUP"
         android:layout_width="wrap_content"
@@ -74,7 +64,6 @@
         android:text="Dietary Preferences"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
 
@@ -85,10 +74,10 @@
         android:layout_marginTop="12dp"
         android:scrollbarSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dietaryPreferencesUP" />
 
+    <!-- Dietary Restrictions -->
     <TextView
         android:id="@+id/dietaryRestrictionsUP"
         android:layout_width="wrap_content"
@@ -97,7 +86,6 @@
         android:text="Dietary Restrictions"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDietaryPreferences" />
 
@@ -108,10 +96,10 @@
         android:layout_marginTop="24dp"
         android:scrollbarSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dietaryRestrictionsUP" />
 
+    <!-- Health Goals -->
     <TextView
         android:id="@+id/healthGoalsUP"
         android:layout_width="wrap_content"
@@ -120,7 +108,6 @@
         android:text="Health Goals"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDietaryRestrictions" />
 
@@ -130,10 +117,10 @@
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthGoalsUP" />
 
+    <!-- Preferences -->
     <TextView
         android:id="@+id/preferencesUP"
         android:layout_width="wrap_content"
@@ -142,7 +129,6 @@
         android:text="Preferences"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerHealthGoals" />
 
@@ -154,10 +140,10 @@
         android:hint="Preferences"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preferencesUP" />
 
+    <!-- Update Button -->
     <Button
         android:id="@+id/buttonUpdate"
         android:layout_width="347dp"

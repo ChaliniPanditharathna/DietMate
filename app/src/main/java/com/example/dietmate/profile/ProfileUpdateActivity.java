@@ -1,7 +1,13 @@
 package com.example.dietmate.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.app.PendingIntent.getActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.dietmate.R;
 import com.example.dietmate.databinding.ActivityProfileUpdateBinding;
+import com.example.dietmate.fragment.HomeFragment;
 
 public class ProfileUpdateActivity extends AppCompatActivity {
 
@@ -57,7 +64,34 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                         "\nWeight: " + weight + "\nDietary Preference: " + dietaryPreference + "\nDietary Restriction: " + dietaryRestriction +
                         "\nHealth Goal: " + healthGoal + "\nPreferences: " + preferences, Toast.LENGTH_LONG).show();
 
+
+                // Create a bundle and pass data to the fragment
+                Bundle bundle = new Bundle();
+                bundle.putInt("age", Integer.parseInt(age));
+                bundle.putDouble("height", Double.parseDouble(height));
+                bundle.putDouble("weight", Double.parseDouble(weight));
+                bundle.putString("dietaryPreference", dietaryPreference);
+                bundle.putString("dietaryRestriction", dietaryRestriction);
+                bundle.putString("healthGoal", healthGoal);
+                bundle.putString("preferences", preferences);
+
+                // Create a new instance of HomeFragment and set arguments
+                Fragment fragment = new HomeFragment();
+                fragment.setArguments(bundle);
+
+                // Replace the current fragment with HomeFragment
+               // replaceFragment(fragment);
+
                 // Save the data to shared preferences or a database here
+                //To-do
+            }
+
+            private void replaceFragment(Fragment fragment) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
     }
