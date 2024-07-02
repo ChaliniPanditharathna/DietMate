@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setLogo(R.drawable.logo_dietmate)
-                .setTheme(R.style.Theme_DietMate)
+                //.setTheme(R.style.Theme_DietMate)
                 .build();
 
         signInLauncher.launch(signInIntent);

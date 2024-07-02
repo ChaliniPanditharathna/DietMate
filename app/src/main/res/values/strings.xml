@@ -26,4 +26,28 @@
     <string name="providers_google">Google</string>
     <string name="providers_email">Email</string>
     <string name="default_web_client_id" translatable="false">webClientId.apps.googleusercontent.com</string>
+
+    <!-- Dietary Preferences Array -->
+    <string-array name="dietary_preferences_array">
+        <item>Vegan</item>
+        <item>Vegetarian</item>
+        <item>Omnivore</item>
+        <item>Pescatarian</item>
+    </string-array>
+
+    <!-- Dietary Restrictions Array -->
+    <string-array name="dietary_restrictions_array">
+        <item>Gluten-Free</item>
+        <item>Dairy-Free</item>
+        <item>Nut-Free</item>
+        <item>Soy-Free</item>
+    </string-array>
+
+    <!-- Health Goals Array -->
+    <string-array name="health_goals_array">
+        <item>Weight Loss</item>
+        <item>Muscle Gain</item>
+        <item>Maintenance</item>
+        <item>Improved Health</item>
+    </string-array>
 </resources>

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.dietmate.fragment.HistoryFragment;
 import com.example.dietmate.fragment.HomeFragment;
 import com.example.dietmate.fragment.NotificationFragment;
+import com.example.dietmate.profile.ProfileFragment;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new NotificationFragment();
                 } else if (itemId == R.id.navigation_history) {
                     selectedFragment = new HistoryFragment();
+                } else if (itemId == R.id.navigation_profile) {
+                    selectedFragment = new ProfileFragment();
                 }
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
@@ -63,6 +66,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set default selection
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
     }
 }
