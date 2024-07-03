@@ -65,7 +65,8 @@ dependencies {
 
     //  Graphical Charts
     //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

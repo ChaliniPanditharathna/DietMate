@@ -50,4 +50,30 @@
         <item>Maintenance</item>
         <item>Improved Health</item>
     </string-array>
+
+    <!-- Meal Types Array -->
+    <string-array name="meal_type_array">
+        <item>breakfast</item>
+        <item>brunch</item>
+        <item>lunch/dinner</item>
+        <item>snack</item>
+        <item>teatime</item>
+    </string-array>
+
+    <!-- Cuisine Types Array -->
+    <string-array name="cuisine_type_array">
+        <item>american</item>
+        <item>asian</item>
+        <item>british</item>
+        <item>Smexican</item>
+    </string-array>
+
+    <!-- Diet Labels Array -->
+    <string-array name="diet_label_array">
+        <item>Balanced</item>
+        <item>High-Protein</item>
+        <item>Low-Carb</item>
+        <item>Low-Fat</item>
+        <item>High-Fiber</item>
+    </string-array>
 </resources>

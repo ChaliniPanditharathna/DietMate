@@ -3,10 +3,13 @@ package com.example.dietmate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dietmate.R;
@@ -31,32 +34,45 @@ public class HomeFragment extends Fragment {
 
         // Retrieve data from arguments
         //if (getArguments() != null) {
-            //int age = getArguments().getInt("age");
-            int age = 30;
-            //double height = getArguments().getDouble("height");
+        //int age = getArguments().getInt("age");
+        int age = 30;
+        //double height = getArguments().getDouble("height");
         double height = 167;
         //double weight = getArguments().getDouble("weight");
         double weight = 55;
-           // String dietaryPreference = getArguments().getString("dietaryPreference");
-          //  String dietaryRestriction = getArguments().getString("dietaryRestriction");
-          //  String healthGoal = getArguments().getString("healthGoal");
-          //  String preferences = getArguments().getString("preferences");
-          //  String gender = getArguments().getString("gender");
+        // String dietaryPreference = getArguments().getString("dietaryPreference");
+        //  String dietaryRestriction = getArguments().getString("dietaryRestriction");
+        //  String healthGoal = getArguments().getString("healthGoal");
+        //  String preferences = getArguments().getString("preferences");
+        //  String gender = getArguments().getString("gender");
 
-            // Calculate BMR
-            double bmr = calculateBMR(age, height, weight, "male");
+        // Calculate BMR
+        double bmr = calculateBMR(age, height, weight, "male");
 
-            // You can now use the retrieved data, for example, set it to a TextView
-            TextView textView = view.findViewById(R.id.textViewProfileInfo);
+        // You can now use the retrieved data, for example, set it to a TextView
+        TextView textView = view.findViewById(R.id.textViewProfileInfo);
             /*textView.setText("Age: " + age + "\nHeight: " + height + "\nWeight: " + weight +
                     "\nDietary Preference: " + dietaryPreference + "\nDietary Restriction: " + dietaryRestriction +
                     "\nHealth Goal: " + healthGoal + "\nPreferences: " + preferences + "\nBMR: " + bmr);*/
 
-           textView.setText("Age: " + age + "\nHeight: " + height + "\nWeight: " + weight + "\nBMR: " + bmr);
+        textView.setText("Age: " + age + "\nHeight: " + height + "\nWeight: " + weight + "\nBMR: " + bmr);
 
-            TextView bmi = view.findViewById(R.id.textViewBMI);
-            bmi.setText(String.valueOf(bmr));
-       // }
+        // }
+
+        Button buttonFindRecipe = view.findViewById(R.id.buttonFindRecipe);
+        buttonFindRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                //result.putString("BREAKDOWNTYPE", breakdownType);
+                //result.putString("CURRENTLOCATION",address);
+
+                Fragment fragment = new RecipeRequestFragment();
+                fragment.setArguments(result);
+
+                replaceFragment(fragment);
+            }
+        });
 
         return view;
     }
@@ -67,5 +83,13 @@ public class HomeFragment extends Fragment {
         } else {
             return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
