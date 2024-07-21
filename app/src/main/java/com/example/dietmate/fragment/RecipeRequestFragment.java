@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.dietmate.R;
@@ -28,6 +29,8 @@ public class RecipeRequestFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_request, container, false);
+
+        EditText prefferedRecipe = view.findViewById(R.id.editTextPreferredRecipe);
 
         ArrayAdapter<CharSequence> dietLabelsAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.diet_label_array, android.R.layout.simple_spinner_item);
@@ -51,9 +54,16 @@ public class RecipeRequestFragment extends Fragment {
         buttonRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String recipeRelated = prefferedRecipe.getText().toString();
+                String dietLabel = spinnerDietLabels.getSelectedItem().toString();
+                String mealType = spinnerMealType.getSelectedItem().toString();
+                String cuisineType =  spinnerCuisineType.getSelectedItem().toString();
+
                 Bundle result = new Bundle();
-                //result.putString("BREAKDOWNTYPE", breakdownType);
-                //result.putString("CURRENTLOCATION",address);
+                result.putString("recipeRelated", recipeRelated);
+                result.putString("dietLabel", dietLabel);
+                result.putString("mealType", mealType);
+                result.putString("cuisineType", cuisineType);
 
                 Fragment fragment = new RecipeListFragment();
                 fragment.setArguments(result);

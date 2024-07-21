@@ -53,27 +53,49 @@
 
     <!-- Meal Types Array -->
     <string-array name="meal_type_array">
+        <item>--Select--</item>
         <item>breakfast</item>
         <item>brunch</item>
-        <item>lunch/dinner</item>
+        <item>lunch</item>
+        <item>dinner</item>
         <item>snack</item>
         <item>teatime</item>
     </string-array>
 
     <!-- Cuisine Types Array -->
     <string-array name="cuisine_type_array">
+        <item>--Select--</item>
         <item>american</item>
         <item>asian</item>
         <item>british</item>
-        <item>Smexican</item>
+        <item>caribbean</item>
+        <item>central europe</item>
+        <item>chinese</item>
+        <item>eastern europe</item>
+        <item>french</item>
+        <item>greek</item>
+        <item>indian</item>
+        <item>italian</item>
+        <item>japanese</item>
+        <item>korean</item>
+        <item>kosher</item>
+        <item>mediterranean</item>
+        <item>mexican</item>
+        <item>middle eastern</item>
+        <item>nordic</item>
+        <item>south american</item>
+        <item>south east asian</item>
+        <item>world</item>
     </string-array>
 
     <!-- Diet Labels Array -->
     <string-array name="diet_label_array">
-        <item>Balanced</item>
-        <item>High-Protein</item>
-        <item>Low-Carb</item>
-        <item>Low-Fat</item>
-        <item>High-Fiber</item>
+        <item>--Select--</item>
+        <item>balanced</item>
+        <item>high-fiber</item>
+        <item>high-protein</item>
+        <item>low-carb</item>
+        <item>low-fat</item>
+        <item>low-sodium</item>
     </string-array>
 </resources>

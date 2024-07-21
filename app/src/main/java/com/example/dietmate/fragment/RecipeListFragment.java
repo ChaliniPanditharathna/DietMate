@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class RecipeListFragment extends Fragment {
 
@@ -55,45 +55,35 @@ public class RecipeListFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        Bundle bundle = getArguments();
+        String prefferedRecipe = bundle != null ? bundle.getString("recipeRelated", "NOTHING") : "NOTHING";
+        String dietLabel = bundle != null ? bundle.getString("dietLabel", "NOTHING") : "NOTHING";
+        String mealType = bundle != null ? bundle.getString("mealType", "NOTHING") : "NOTHING";
+        String cuisineType = bundle != null ? bundle.getString("cuisineType", "NOTHING") : "NOTHING";
+
+        Log.d("prefferedRecipe", prefferedRecipe);
         requestQueue = VolleySingleton.getInstance(getContext()).getRequestQueue();
         recipeList = new ArrayList<>();
-        fetchRecipes();
+        fetchRecipes(prefferedRecipe, dietLabel, mealType, cuisineType);
 
         return view;
     }
 
-    /*private void fetchRecipes() {
-        String url = "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=f825fd5c&app_key=60ee5f2cb96f07f49d247839253cee8f";
+    private void fetchRecipes(String prefferedRecipe, String dietLabel, String mealType, String cuisineType) {
+        if (prefferedRecipe == null || prefferedRecipe.isEmpty()) {
+            prefferedRecipe = "chicken"; // Default recipe
+        }
+        if (dietLabel == null || dietLabel.isEmpty()) {
+            dietLabel = "balanced"; // Default recipe
+        }
+        if (mealType == null || mealType.isEmpty()) {
+            mealType = "brunch"; // Default recipe
+        }
+        if (cuisineType == null || cuisineType.isEmpty()) {
+            cuisineType = "american"; // Default recipe
+        }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            try {
-                JSONArray jsonArray = response.getJSONArray("hits");
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("recipe");
-                    String title = jsonObject.getString("label");
-                    String imageUrl = jsonObject.getString("image");
-
-                    Recipe recipe = new Recipe(title, imageUrl);
-                    recipeList.add(recipe);
-                }
-
-                RecyclerAdapter adapter = new RecyclerAdapter(getContext(), recipeList);
-                recyclerView.setAdapter(adapter);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            String errorMessage = (error.getMessage() != null) ? error.getMessage() : "An unexpected error occurred";
-            Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-        });
-
-        requestQueue.add(jsonObjectRequest);
-    }*/
-
-    private void fetchRecipes() {
-        String url = "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=f825fd5c&app_key=60ee5f2cb96f07f49d247839253cee8f";
+        String url = "https://api.edamam.com/api/recipes/v2?type=public&q=" + prefferedRecipe + "&diet=" + dietLabel + "&mealType=" + mealType + "&cuisineType=" + cuisineType + "&app_id=f825fd5c&app_key=60ee5f2cb96f07f49d247839253cee8f";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
@@ -124,12 +114,9 @@ public class RecipeListFragment extends Fragment {
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         }) {
 
-            /**
-             * Passing some request headers
-             */
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
+                HashMap<String, String> headers = new HashMap<>();
                 //headers.put("Content-Type", "application/json");
                 headers.put("Edamam-Account-User", "f825fd5c");
                 return headers;
@@ -138,6 +125,4 @@ public class RecipeListFragment extends Fragment {
 
         requestQueue.add(jsonObjectRequest);
     }
-
-
 }
