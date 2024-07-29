@@ -21,10 +21,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private ArrayList<Recipe> recipeList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
-    public RecyclerAdapter(Context context, ArrayList<Recipe> recipeList) {
+    public interface OnItemClickListener {
+        void onItemClick(Recipe recipe);
+    }
+
+    public RecyclerAdapter(Context context, ArrayList<Recipe> recipeList, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.recipeList = recipeList;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -32,7 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
-        return  viewHolder;
+        return viewHolder;
     }
 
     @Override
@@ -40,6 +46,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Recipe recipe = recipeList.get(position);
         holder.title.setText(recipe.getTitle());
         Picasso.get().load(recipe.getImage()).into(holder.image);
+
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(recipe));
     }
 
     @Override
@@ -50,8 +58,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView title;
-
         CardView cardView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.imageRecipe);

@@ -3,6 +3,7 @@ package com.example.dietmate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +99,19 @@ public class RecipeListFragment extends Fragment {
                     recipeList.add(recipe);
                 }
 
-                RecyclerAdapter adapter = new RecyclerAdapter(getContext(), recipeList);
+                RecyclerAdapter adapter = new RecyclerAdapter(getContext(), recipeList, recipe -> {
+                    // Navigate to RecipeDetailsFragment
+                    RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", recipe.getTitle());
+                    bundle.putString("image", recipe.getImage());
+                    recipeDetailsFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, recipeDetailsFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                });
                 recyclerView.setAdapter(adapter);
 
             } catch (JSONException e) {
@@ -117,7 +130,6 @@ public class RecipeListFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                //headers.put("Content-Type", "application/json");
                 headers.put("Edamam-Account-User", "f825fd5c");
                 return headers;
             }
