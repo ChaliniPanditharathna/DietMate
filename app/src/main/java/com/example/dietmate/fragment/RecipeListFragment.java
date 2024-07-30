@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class RecipeListFragment extends Fragment {
@@ -94,8 +95,23 @@ public class RecipeListFragment extends Fragment {
                     JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("recipe");
                     String title = jsonObject.getString("label");
                     String imageUrl = jsonObject.getString("image");
+                    String recipeUrl = jsonObject.getString("url");
+                    JSONArray ingredientsArray = jsonObject.getJSONArray("ingredientLines");
+                    ArrayList<String> ingredientLines = new ArrayList<>();
+                    for (int j = 0; j < ingredientsArray.length(); j++) {
+                        ingredientLines.add(ingredientsArray.getString(j));
+                    }
 
-                    Recipe recipe = new Recipe(title, imageUrl);
+                    JSONObject totalNutrientsObject = jsonObject.getJSONObject("totalNutrients");
+                    HashMap<String, Double> totalNutrients = new HashMap<>();
+                    for (Iterator<String> it = totalNutrientsObject.keys(); it.hasNext(); ) {
+                        String key = it.next();
+                        JSONObject nutrient = totalNutrientsObject.getJSONObject(key);
+                        double quantity = nutrient.getDouble("quantity");
+                        totalNutrients.put(key, quantity);
+                    }
+
+                    Recipe recipe = new Recipe(title, imageUrl, recipeUrl, ingredientLines, totalNutrients);
                     recipeList.add(recipe);
                 }
 
@@ -105,6 +121,9 @@ public class RecipeListFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("title", recipe.getTitle());
                     bundle.putString("image", recipe.getImage());
+                    bundle.putString("recipeUrl", recipe.getRecipeUrl());
+                    bundle.putStringArrayList("ingredientLines", recipe.getIngredientLines());
+                    bundle.putSerializable("totalNutrients", recipe.getTotalNutrients());
                     recipeDetailsFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();

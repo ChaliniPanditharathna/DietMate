@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes for MPAndroidChart -->
+    <declare-styleable name="PieChart">
+        <attr name="chart_backgroundColor" format="color"/>
+    </declare-styleable>
+</resources>
