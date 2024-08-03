@@ -16,11 +16,12 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class RecipeDetailsFragment extends Fragment {
 
@@ -61,27 +62,38 @@ public class RecipeDetailsFragment extends Fragment {
             }
             ingredientLinesTextView.setText(ingredientsBuilder.toString());
 
-            // Display total nutrients in the PieChart
+            // Display specific nutrients in the PieChart
             ArrayList<PieEntry> entries = new ArrayList<>();
             if (totalNutrients != null) {
-                for (Map.Entry<String, Double> entry : totalNutrients.entrySet()) {
-                    entries.add(new PieEntry(entry.getValue().floatValue(), entry.getKey()));
+                // Define the keys for the required nutrients
+                String[] requiredNutrients = {"FAT", "CHOCDF", "PROCNT", "CHOLE", "CA"};
+                HashMap<String, String> nutrientLabels = new HashMap<>();
+                nutrientLabels.put("FAT", "Fat");
+                nutrientLabels.put("CHOCDF", "Carbs");
+                nutrientLabels.put("PROCNT", "Protein");
+                nutrientLabels.put("CHOLE", "Cholesterol");
+                nutrientLabels.put("CA", "Calcium");
+
+                for (String nutrientKey : requiredNutrients) {
+                    if (totalNutrients.containsKey(nutrientKey)) {
+                        double quantity = totalNutrients.get(nutrientKey);
+                        entries.add(new PieEntry((float) quantity, nutrientLabels.get(nutrientKey) + " " + quantity + "g"));
+                    }
                 }
             }
 
             PieDataSet dataSet = new PieDataSet(entries, "Nutrients");
-            dataSet.setColors(new int[]{
-                    ContextCompat.getColor(getContext(), R.color.colorPrimary),
-                    ContextCompat.getColor(getContext(), R.color.colorPrimaryDark),
-                    ContextCompat.getColor(getContext(), R.color.colorAccent)
-            });
+            dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
             PieData pieData = new PieData(dataSet);
+            pieData.setValueTextSize(12f);
+            pieData.setValueFormatter(new PercentFormatter(nutrientChart));
             nutrientChart.setData(pieData);
             nutrientChart.invalidate(); // refresh chart
 
             // Customize chart description
             Description description = new Description();
             description.setText("Total Nutrients");
+            description.setTextSize(16f); // Increase font size
             nutrientChart.setDescription(description);
         }
 

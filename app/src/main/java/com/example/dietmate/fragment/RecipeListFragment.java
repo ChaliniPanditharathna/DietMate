@@ -104,11 +104,15 @@ public class RecipeListFragment extends Fragment {
 
                     JSONObject totalNutrientsObject = jsonObject.getJSONObject("totalNutrients");
                     HashMap<String, Double> totalNutrients = new HashMap<>();
-                    for (Iterator<String> it = totalNutrientsObject.keys(); it.hasNext(); ) {
-                        String key = it.next();
-                        JSONObject nutrient = totalNutrientsObject.getJSONObject(key);
-                        double quantity = nutrient.getDouble("quantity");
-                        totalNutrients.put(key, quantity);
+
+                    // Extracting required nutrients
+                    String[] nutrientKeys = {"FAT", "CHOCDF", "PROCNT", "CHOLE", "CA"};
+                    for (String key : nutrientKeys) {
+                        if (totalNutrientsObject.has(key)) {
+                            JSONObject nutrient = totalNutrientsObject.getJSONObject(key);
+                            double quantity = nutrient.getDouble("quantity");
+                            totalNutrients.put(key, quantity);
+                        }
                     }
 
                     Recipe recipe = new Recipe(title, imageUrl, recipeUrl, ingredientLines, totalNutrients);
