@@ -1,16 +1,22 @@
 package com.example.dietmate.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.dietmate.R;
+import com.example.dietmate.dao.RecipeDao;
+import com.example.dietmate.databases.RecipeDatabase;
+import com.example.dietmate.model.Recipe;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
@@ -24,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecipeDetailsFragment extends Fragment {
+
+    private RecipeDatabase db;
+    private Recipe currentRecipe;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor
@@ -40,6 +49,9 @@ public class RecipeDetailsFragment extends Fragment {
         TextView recipeUrl = view.findViewById(R.id.detailRecipeUrl);
         TextView ingredientLinesTextView = view.findViewById(R.id.ingredientLines);
         PieChart nutrientChart = view.findViewById(R.id.nutrientChart);
+        Button saveRecipeButton = view.findViewById(R.id.saveRecipeButton);
+
+        db = RecipeDatabase.getDatabase(getContext());
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -95,8 +107,32 @@ public class RecipeDetailsFragment extends Fragment {
             description.setText("Total Nutrients");
             description.setTextSize(16f); // Increase font size
             nutrientChart.setDescription(description);
+
+            // Initialize the current recipe
+            currentRecipe = new Recipe(detailTitle, detailImageString, detailRecipeUrl, ingredientLines, totalNutrients);
         }
 
+        saveRecipeButton.setOnClickListener(v -> {
+            if (currentRecipe != null) {
+                new InsertRecipeAsyncTask(db.recipeDao()).execute(new Recipe(currentRecipe.getTitle(), currentRecipe.getTotalNutrients()));
+                Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
+    }
+
+    private static class InsertRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
+        private RecipeDao recipeDao;
+
+        private InsertRecipeAsyncTask(RecipeDao recipeDao) {
+            this.recipeDao = recipeDao;
+        }
+
+        @Override
+        protected Void doInBackground(Recipe... recipes) {
+            recipeDao.insert(recipes[0]);
+            return null;
+        }
     }
 }

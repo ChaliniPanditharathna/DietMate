@@ -1,15 +1,37 @@
 package com.example.dietmate.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.dietmate.utils.Converters;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Entity(tableName = "recipe_table")
+@TypeConverters(Converters.class)
 public class Recipe {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String title;
-    private String image;
-    private String recipeUrl;
-    private ArrayList<String> ingredientLines;
     private HashMap<String, Double> totalNutrients;
 
+    @Ignore
+    private String image;
+    @Ignore
+    private String recipeUrl;
+    @Ignore
+    private ArrayList<String> ingredientLines;
+
+    public Recipe(String title, HashMap<String, Double> totalNutrients) {
+        this.title = title;
+        this.totalNutrients = totalNutrients;
+    }
+
+    @Ignore
     public Recipe(String title, String image, String recipeUrl, ArrayList<String> ingredientLines, HashMap<String, Double> totalNutrients) {
         this.title = title;
         this.image = image;
@@ -18,12 +40,28 @@ public class Recipe {
         this.totalNutrients = totalNutrients;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public HashMap<String, Double> getTotalNutrients() {
+        return totalNutrients;
+    }
+
+    public void setTotalNutrients(HashMap<String, Double> totalNutrients) {
+        this.totalNutrients = totalNutrients;
     }
 
     public String getImage() {
@@ -48,13 +86,5 @@ public class Recipe {
 
     public void setIngredientLines(ArrayList<String> ingredientLines) {
         this.ingredientLines = ingredientLines;
-    }
-
-    public HashMap<String, Double> getTotalNutrients() {
-        return totalNutrients;
-    }
-
-    public void setTotalNutrients(HashMap<String, Double> totalNutrients) {
-        this.totalNutrients = totalNutrients;
     }
 }
