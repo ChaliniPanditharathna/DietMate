@@ -11,18 +11,17 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.dietmate.R;
+import com.example.dietmate.dao.ProfileDao;
 import com.example.dietmate.databases.RecipeDatabase;
+import com.example.dietmate.model.Profile;
 import com.example.dietmate.model.Recipe;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +31,7 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     private RecipeDatabase recipeDatabase;
+    private ProfileDao profileDao;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,20 +45,13 @@ public class HomeFragment extends Fragment {
 
         // Initialize RecipeDatabase
         recipeDatabase = RecipeDatabase.getDatabase(requireContext());
+        profileDao = recipeDatabase.profileDao();
 
         // Retrieve and display nutrient data
-        new RetrieveDataTask().execute("2024-08-03"); // Example date, adjust as needed
+        new RetrieveDataTask().execute("2024-8-4"); // Example date, adjust as needed
 
-        // Example BMR calculation
-        int age = 30;
-        double height = 167;
-        double weight = 55;
-        String gender = "male";
-        double bmr = calculateBMR(age, height, weight, gender);
-
-        // Display BMR and profile info
-        TextView textView = view.findViewById(R.id.textViewProfileInfo);
-        textView.setText("Age: " + age + "\nHeight: " + height + "\nWeight: " + weight + "\nBMR: " + bmr);
+        // Retrieve profile data
+        new RetrieveProfileTask().execute(1); // Example profile ID, adjust as needed
 
         // Set up button to switch fragments
         Button buttonFindRecipe = view.findViewById(R.id.buttonFindRecipe);
@@ -106,21 +99,28 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    /*private void displayNutrientGraph(Map<String, Double> nutrientTotals) {
-        BarChart barChart = getView().findViewById(R.id.barChart);
+    private class RetrieveProfileTask extends AsyncTask<Integer, Void, Profile> {
 
-        List<BarEntry> entries = new ArrayList<>();
-        int i = 0;
-        for (Map.Entry<String, Double> entry : nutrientTotals.entrySet()) {
-            entries.add(new BarEntry(i++, entry.getValue().floatValue()));
+        @Override
+        protected Profile doInBackground(Integer... ids) {
+            int id = ids[0];
+            return profileDao.getProfileById(id);
         }
 
-        BarDataSet dataSet = new BarDataSet(entries, "Nutrients");
-        BarData barData = new BarData(dataSet);
-
-        barChart.setData(barData);
-        barChart.invalidate(); // refresh the chart
-    }*/
+        @Override
+        protected void onPostExecute(Profile profile) {
+            super.onPostExecute(profile);
+            if (profile != null) {
+                double bmr = calculateBMR(profile.age, profile.height, profile.weight, "male");
+                TextView textView = getView().findViewById(R.id.textViewProfileInfo);
+                textView.setText("Age: " + profile.age + "\nHeight: " + profile.height + "\nWeight: " + profile.weight + "\nBMR: " + bmr);
+            } else {
+                // Handle the case where the profile is not found
+                TextView textView = getView().findViewById(R.id.textViewProfileInfo);
+                textView.setText("Profile not found.");
+            }
+        }
+    }
 
     private void displayNutrientGraph(Map<String, Double> nutrientTotals) {
         BarChart barChart = getView().findViewById(R.id.barChart);
