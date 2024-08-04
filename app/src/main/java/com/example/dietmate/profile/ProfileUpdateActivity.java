@@ -1,24 +1,21 @@
 package com.example.dietmate.profile;
 
-import static android.app.PendingIntent.getActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.example.dietmate.R;
 import com.example.dietmate.databinding.ActivityProfileUpdateBinding;
+import com.example.dietmate.dao.ProfileDao;
+import com.example.dietmate.databases.RecipeDatabase;
 import com.example.dietmate.fragment.HomeFragment;
+import com.example.dietmate.model.Profile;
 
 public class ProfileUpdateActivity extends AppCompatActivity {
 
@@ -27,7 +24,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_profile_update);
         binding = ActivityProfileUpdateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -59,14 +55,42 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                 String healthGoal = binding.spinnerHealthGoals.getSelectedItem().toString();
                 String preferences = binding.editTextPreferences.getText().toString();
 
-                // For demonstration purposes, show a Toast message
-                Toast.makeText(ProfileUpdateActivity.this, "Updated Profile:\nAge: " + age + "\nHeight: " + height +
-                        "\nWeight: " + weight + "\nDietary Preference: " + dietaryPreference + "\nDietary Restriction: " + dietaryRestriction +
-                        "\nHealth Goal: " + healthGoal + "\nPreferences: " + preferences, Toast.LENGTH_LONG).show();
+                // Create a Profile object to save or update
+                Profile profile = new Profile();
+                profile.age = Integer.parseInt(age);
+                profile.height = Double.parseDouble(height);
+                profile.weight = Double.parseDouble(weight);
+                profile.dietaryPreference = dietaryPreference;
+                profile.dietaryRestriction = dietaryRestriction;
+                profile.healthGoal = healthGoal;
+                profile.preferences = preferences;
 
+                // You might need to specify an ID for updates, otherwise it will insert a new record
+                // For example, let's set a static ID of 1 for this demo; adjust as needed
+                profile.id = 1; // Change this as per your requirement
+
+                // Perform the database operation on a background thread
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        RecipeDatabase db = RecipeDatabase.getDatabase(ProfileUpdateActivity.this);
+                        ProfileDao profileDao = db.profileDao();
+
+                        // Insert or update the profile in the database
+                        profileDao.insert(profile);
+
+                        // Show a confirmation Toast message on the main thread
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ProfileUpdateActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).start();
 
                 // Create a bundle and pass data to the fragment
-                Bundle bundle = new Bundle();
+              /*  Bundle bundle = new Bundle();
                 bundle.putInt("age", Integer.parseInt(age));
                 bundle.putDouble("height", Double.parseDouble(height));
                 bundle.putDouble("weight", Double.parseDouble(weight));
@@ -80,19 +104,16 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
 
                 // Replace the current fragment with HomeFragment
-               // replaceFragment(fragment);
-
-                // Save the data to shared preferences or a database here
-                //To-do
+                replaceFragment(fragment);*/
             }
 
-            private void replaceFragment(Fragment fragment) {
+            /*private void replaceFragment(Fragment fragment) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-            }
+            }*/
         });
     }
 }
