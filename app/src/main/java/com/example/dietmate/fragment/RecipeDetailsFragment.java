@@ -26,9 +26,11 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class RecipeDetailsFragment extends Fragment {
 
@@ -116,7 +118,8 @@ public class RecipeDetailsFragment extends Fragment {
         saveRecipeButton.setOnClickListener(v -> {
             if (currentRecipe != null) {
                 // Save current date
-                currentRecipe.setDate(new Date().getTime());
+                String date = new SimpleDateFormat("yyyy-M-d", Locale.getDefault()).format(new Date());
+                currentRecipe.setDate(date);
                 new InsertRecipeAsyncTask(db.recipeDao()).execute(currentRecipe);
                 Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
             }

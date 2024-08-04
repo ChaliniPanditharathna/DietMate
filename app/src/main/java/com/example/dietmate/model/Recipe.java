@@ -8,7 +8,6 @@ import androidx.room.TypeConverters;
 import com.example.dietmate.utils.Converters;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 @Entity(tableName = "recipe_table")
@@ -27,7 +26,7 @@ public class Recipe {
     @Ignore
     private ArrayList<String> ingredientLines;
 
-    private long date; // Changed to long
+    private String date; // Changed to long
 
     // No-argument constructor
     public Recipe() {
@@ -35,7 +34,7 @@ public class Recipe {
     }
 
     // Constructor with parameters for Room entity
-    public Recipe(String title, HashMap<String, Double> totalNutrients, long date) {
+    public Recipe(String title, HashMap<String, Double> totalNutrients, String date) {
         this.title = title;
         this.totalNutrients = totalNutrients;
         this.date = date;
@@ -100,11 +99,11 @@ public class Recipe {
         this.ingredientLines = ingredientLines;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

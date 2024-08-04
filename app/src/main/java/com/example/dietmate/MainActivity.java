@@ -13,6 +13,7 @@ import com.example.dietmate.fragment.HistoryFragment;
 import com.example.dietmate.fragment.HomeFragment;
 import com.example.dietmate.fragment.MealPlannerFragment;
 import com.example.dietmate.fragment.NotificationFragment;
+import com.example.dietmate.fragment.WeeklyTimetableFragment;
 import com.example.dietmate.profile.ProfileFragment;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.navigation_home) {
                     selectedFragment = new HomeFragment();
                 } else if (itemId == R.id.navigation_notifications) {
-                    selectedFragment = new NotificationFragment();
+                    selectedFragment = new WeeklyTimetableFragment();
                 } else if (itemId == R.id.navigation_history) {
                     selectedFragment = new MealPlannerFragment();
                 } else if (itemId == R.id.navigation_profile) {

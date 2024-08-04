@@ -15,4 +15,8 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM recipe_table")
     List<Recipe> getAllRecipes();
+
+    @Query("SELECT * FROM recipe_table WHERE date = :date")
+    List<Recipe> getRecipesByDate(String date);
+
 }

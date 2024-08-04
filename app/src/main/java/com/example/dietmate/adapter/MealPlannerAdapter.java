@@ -36,7 +36,7 @@ public class MealPlannerAdapter extends RecyclerView.Adapter<MealPlannerAdapter.
         holder.nutrients.setText(formatNutrients(recipe.getTotalNutrients()));
 
         // Convert timestamp to a readable date string
-        holder.date.setText(formatDate(recipe.getDate()));
+        holder.date.setText(recipe.getDate());
     }
 
     @Override
