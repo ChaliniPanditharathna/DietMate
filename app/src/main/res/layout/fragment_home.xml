@@ -13,30 +13,44 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewProfileInfo"
+            app:layout_constraintStart_toStartOf="@+id/textViewProfileInfo">
 
             <TextView
                 android:id="@+id/textViewProfileInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="51dp"
                 android:gravity="center_horizontal"
                 android:textColor="@color/material_dynamic_neutral50"
                 android:textSize="34sp"
                 android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/barChart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonFindRecipe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProfileInfo" />
 
             <Button
                 android:id="@+id/buttonFindRecipe"
                 android:layout_width="236dp"
                 android:layout_height="63dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="52dp"
                 android:text="Find Recipe"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
