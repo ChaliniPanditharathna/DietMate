@@ -23,10 +23,13 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -47,8 +50,11 @@ public class HomeFragment extends Fragment {
         recipeDatabase = RecipeDatabase.getDatabase(requireContext());
         profileDao = recipeDatabase.profileDao();
 
+        // Get today's date in the required format
+        String todayDate = getCurrentDate();
+
         // Retrieve and display nutrient data
-        new RetrieveDataTask().execute("2024-8-4"); // Example date, adjust as needed
+        new RetrieveDataTask().execute(todayDate);
 
         // Retrieve profile data
         new RetrieveProfileTask().execute(1); // Example profile ID, adjust as needed
@@ -64,6 +70,11 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+        return dateFormat.format(Calendar.getInstance().getTime());
     }
 
     private double calculateBMR(int age, double height, double weight, String gender) {
