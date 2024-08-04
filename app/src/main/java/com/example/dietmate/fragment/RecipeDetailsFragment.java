@@ -27,6 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class RecipeDetailsFragment extends Fragment {
@@ -108,13 +109,15 @@ public class RecipeDetailsFragment extends Fragment {
             description.setTextSize(16f); // Increase font size
             nutrientChart.setDescription(description);
 
-            // Initialize the current recipe
+            // Initialize the current recipe with current date
             currentRecipe = new Recipe(detailTitle, detailImageString, detailRecipeUrl, ingredientLines, totalNutrients);
         }
 
         saveRecipeButton.setOnClickListener(v -> {
             if (currentRecipe != null) {
-                new InsertRecipeAsyncTask(db.recipeDao()).execute(new Recipe(currentRecipe.getTitle(), currentRecipe.getTotalNutrients()));
+                // Save current date
+                currentRecipe.setDate(new Date().getTime());
+                new InsertRecipeAsyncTask(db.recipeDao()).execute(currentRecipe);
                 Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
             }
         });

@@ -8,6 +8,7 @@ import androidx.room.TypeConverters;
 import com.example.dietmate.utils.Converters;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 @Entity(tableName = "recipe_table")
@@ -26,11 +27,21 @@ public class Recipe {
     @Ignore
     private ArrayList<String> ingredientLines;
 
-    public Recipe(String title, HashMap<String, Double> totalNutrients) {
-        this.title = title;
-        this.totalNutrients = totalNutrients;
+    private long date; // Changed to long
+
+    // No-argument constructor
+    public Recipe() {
+        // Room requires a no-argument constructor
     }
 
+    // Constructor with parameters for Room entity
+    public Recipe(String title, HashMap<String, Double> totalNutrients, long date) {
+        this.title = title;
+        this.totalNutrients = totalNutrients;
+        this.date = date;
+    }
+
+    // Overloaded constructor for additional fields
     @Ignore
     public Recipe(String title, String image, String recipeUrl, ArrayList<String> ingredientLines, HashMap<String, Double> totalNutrients) {
         this.title = title;
@@ -40,6 +51,7 @@ public class Recipe {
         this.totalNutrients = totalNutrients;
     }
 
+    // Getter and setter methods
     public int getId() {
         return id;
     }
@@ -86,5 +98,13 @@ public class Recipe {
 
     public void setIngredientLines(ArrayList<String> ingredientLines) {
         this.ingredientLines = ingredientLines;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }

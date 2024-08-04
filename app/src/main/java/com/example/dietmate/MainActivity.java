@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.dietmate.fragment.HistoryFragment;
 import com.example.dietmate.fragment.HomeFragment;
+import com.example.dietmate.fragment.MealPlannerFragment;
 import com.example.dietmate.fragment.NotificationFragment;
 import com.example.dietmate.profile.ProfileFragment;
 import com.firebase.ui.auth.IdpResponse;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.navigation_notifications) {
                     selectedFragment = new NotificationFragment();
                 } else if (itemId == R.id.navigation_history) {
-                    selectedFragment = new HistoryFragment();
+                    selectedFragment = new MealPlannerFragment();
                 } else if (itemId == R.id.navigation_profile) {
                     selectedFragment = new ProfileFragment();
                 }
