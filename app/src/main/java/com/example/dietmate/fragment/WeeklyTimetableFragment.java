@@ -76,14 +76,15 @@ public class WeeklyTimetableFragment extends Fragment {
     }
 
     private void showPopup(List<Recipe> recipes) {
-        StringBuilder titles = new StringBuilder();
+        StringBuilder details = new StringBuilder();
         for (Recipe recipe : recipes) {
-            titles.append(recipe.getTitle()).append("\n");
+            details.append("Title: ").append(recipe.getTitle()).append("\n")
+                    .append("Meal Type: ").append(recipe.getMealType()).append("\n\n");
         }
 
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle("Recipes for Selected Date")
-                .setMessage(titles.toString())
+                .setMessage(details.toString())
                 .setPositiveButton("OK", null)
                 .show();
     }
