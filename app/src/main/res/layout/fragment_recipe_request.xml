@@ -12,31 +12,48 @@
         android:padding="16dp">
 
         <!-- Preferred Recipe Input -->
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Make Your Preferences.."
+            android:textColor="@color/design_default_color_secondary_variant"
+            android:textSize="24sp"
+            android:textStyle="normal|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:text="What do you prefer to eat? (e.g., Chicken, Rice, Cheese.. etc.)"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+        <!-- Diet Labels -->
         <EditText
             android:id="@+id/editTextPreferredRecipe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="28dp"
             android:ems="10"
             android:inputType="text"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView" />
 
-        <!-- Diet Labels -->
         <TextView
             android:id="@+id/dietLabel"
             android:layout_width="wrap_content"
@@ -44,20 +61,22 @@
             android:layout_marginTop="24dp"
             android:text="Preffered Diet "
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextPreferredRecipe" />
 
+        <!-- Meal Types -->
         <Spinner
             android:id="@+id/spinnerDietLabels"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dietLabel" />
 
-        <!-- Meal Types -->
         <TextView
             android:id="@+id/mealTypes"
             android:layout_width="wrap_content"
@@ -65,50 +84,60 @@
             android:layout_marginTop="24dp"
             android:text="Meal Types"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinnerDietLabels" />
+
+        <!-- Cuisine Types -->
 
         <Spinner
             android:id="@+id/spinnerMealTypes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mealTypes" />
 
-        <!-- Cuisine Types -->
         <TextView
             android:id="@+id/cuisineTypes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="Cuisine Types"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinnerMealTypes" />
+
+        <!-- Pick Recipe Button -->
 
         <Spinner
             android:id="@+id/spinnerCuisineType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cuisineTypes" />
 
-        <!-- Pick Recipe Button -->
         <Button
             android:id="@+id/buttonPickRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Pick Recipe"
+            android:textStyle="normal|bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerCuisineType" />
+            app:layout_constraintTop_toBottomOf="@id/spinnerCuisineType"
+            app:layout_constraintVertical_bias="0.287" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
