@@ -32,7 +32,7 @@ import java.util.concurrent.Executors;
 public class ProfileFragment extends Fragment {
 
     private static final List<Integer> IMAGES_LIST = List.of(R.drawable.update,R.drawable.log_out, R.drawable.delete_account);
-    private static final List<String> LABELS_LIST = List.of("Preferences","Sign Out", "Delete Account");
+    private static final List<String> LABELS_LIST = List.of("Update Profile","Sign Out", "Delete Account");
 
     private static final String TAG = "DietMate";
 
