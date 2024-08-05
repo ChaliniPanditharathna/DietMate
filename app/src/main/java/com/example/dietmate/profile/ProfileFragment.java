@@ -17,6 +17,8 @@ import com.example.dietmate.R;
 import com.example.dietmate.adapter.ProfileOptionsAdapter;
 import com.example.dietmate.database.DietMateDatabase;
 import com.example.dietmate.databinding.FragmentProfileBinding;
+import com.example.dietmate.fragment.RecipeRequestFragment;
+import com.example.dietmate.fragment.UpdateProfileFragment;
 import com.example.dietmate.login.LoginActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -51,8 +53,10 @@ public class ProfileFragment extends Fragment {
         ProfileOptionsAdapter profileOptionsAdapter = new ProfileOptionsAdapter(IMAGES_LIST, LABELS_LIST, position -> {
             switch (position) {
                 case 0:
-                    Intent intent = new Intent(getActivity(), ProfileUpdateActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(getActivity(), ProfileUpdateActivity.class);
+                    startActivity(intent);*/
+                    Fragment fragment = new UpdateProfileFragment();
+                    replaceFragment(fragment);
                     break;
                 case 1:
                     signOut();
@@ -118,5 +122,12 @@ public class ProfileFragment extends Fragment {
 
     private void showSnackbar(@StringRes int errorMessageRes) {
         Snackbar.make(binding.getRoot(), errorMessageRes, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
