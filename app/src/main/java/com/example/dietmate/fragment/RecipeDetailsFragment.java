@@ -36,6 +36,7 @@ public class RecipeDetailsFragment extends Fragment {
 
     private RecipeDatabase db;
     private Recipe currentRecipe;
+    private String mealType;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor
@@ -63,6 +64,7 @@ public class RecipeDetailsFragment extends Fragment {
             String detailRecipeUrl = bundle.getString("recipeUrl");
             ArrayList<String> ingredientLines = bundle.getStringArrayList("ingredientLines");
             HashMap<String, Double> totalNutrients = (HashMap<String, Double>) bundle.getSerializable("totalNutrients");
+            mealType = bundle.getString("mealType");
 
             Picasso.get().load(detailImageString).into(detailImage);
             title.setText(detailTitle);
@@ -120,6 +122,7 @@ public class RecipeDetailsFragment extends Fragment {
                 // Save current date
                 String date = new SimpleDateFormat("yyyy-M-d", Locale.getDefault()).format(new Date());
                 currentRecipe.setDate(date);
+                currentRecipe.setMealType(mealType);
                 new InsertRecipeAsyncTask(db.recipeDao()).execute(currentRecipe);
                 Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
             }

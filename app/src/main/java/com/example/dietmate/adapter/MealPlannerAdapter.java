@@ -37,6 +37,7 @@ public class MealPlannerAdapter extends RecyclerView.Adapter<MealPlannerAdapter.
 
         // Convert timestamp to a readable date string
         holder.date.setText(recipe.getDate());
+        holder.mealType.setText(recipe.getMealType());
     }
 
     @Override
@@ -58,13 +59,14 @@ public class MealPlannerAdapter extends RecyclerView.Adapter<MealPlannerAdapter.
     }
 
     public static class MealPlannerViewHolder extends RecyclerView.ViewHolder {
-        TextView title, nutrients, date;
+        TextView title, nutrients, date, mealType;
 
         public MealPlannerViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             nutrients = itemView.findViewById(R.id.nutrients);
             date = itemView.findViewById(R.id.date);
+            mealType = itemView.findViewById(R.id.mealType);
         }
     }
 }

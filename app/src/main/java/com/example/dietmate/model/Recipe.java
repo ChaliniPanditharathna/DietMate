@@ -28,16 +28,19 @@ public class Recipe {
 
     private String date; // Changed to long
 
+    private String mealType;
+
     // No-argument constructor
     public Recipe() {
         // Room requires a no-argument constructor
     }
 
     // Constructor with parameters for Room entity
-    public Recipe(String title, HashMap<String, Double> totalNutrients, String date) {
+    public Recipe(String title, HashMap<String, Double> totalNutrients, String date, String mealType) {
         this.title = title;
         this.totalNutrients = totalNutrients;
         this.date = date;
+        this.mealType = mealType;
     }
 
     // Overloaded constructor for additional fields
@@ -105,5 +108,13 @@ public class Recipe {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
     }
 }

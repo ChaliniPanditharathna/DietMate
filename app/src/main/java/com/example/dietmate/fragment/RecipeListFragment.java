@@ -87,6 +87,7 @@ public class RecipeListFragment extends Fragment {
 
         String url = "https://api.edamam.com/api/recipes/v2?type=public&q=" + prefferedRecipe + "&diet=" + dietLabel + "&mealType=" + mealType + "&cuisineType=" + cuisineType + "&app_id=f825fd5c&app_key=60ee5f2cb96f07f49d247839253cee8f";
 
+        String finalMealType = mealType;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
                 JSONArray jsonArray = response.getJSONArray("hits");
@@ -128,6 +129,7 @@ public class RecipeListFragment extends Fragment {
                     bundle.putString("recipeUrl", recipe.getRecipeUrl());
                     bundle.putStringArrayList("ingredientLines", recipe.getIngredientLines());
                     bundle.putSerializable("totalNutrients", recipe.getTotalNutrients());
+                    bundle.putString("mealType", finalMealType);
                     recipeDetailsFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
